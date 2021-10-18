@@ -1,0 +1,48 @@
+
+{% extends 'main/header.html' %}
+
+{% block content %}
+
+
+
+<div class="container p-4">
+  <a class="btn btn-primary" href="/trip_create" role="button">Create trip</a>
+    <div class="row">
+        {% for t in trips %}
+        <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
+          <div class="card h-100 p-4">
+            <h4>{{t.name}}</h4>
+            <p class="text-muted">{{t.budget}} {{t.currency}}</p>
+            <p>{{t.comments}}</p>
+            <a class="btn btn-primary" href="trip_detail/{{t.id}}" role="button">Edit</a>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+   </div>
+
+
+   <!--Pagination-->
+   <div class="container p-4">
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+          {% if trips.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ trips.previous_page_number }}">previous</a>
+          {% endif %}
+
+            <span class="current">
+                Page {{ trips.number }} of {{ trips.paginator.num_pages }}
+            </span>
+
+          {% if trips.has_next %}
+              <a href="?page={{ trips.next_page_number }}">next</a>
+              <a href="?page={{ trips.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  <!--end of Pagination-->
+
+
+  {% endblock %}

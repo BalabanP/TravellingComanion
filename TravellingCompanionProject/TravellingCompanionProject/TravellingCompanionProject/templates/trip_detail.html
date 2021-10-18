@@ -1,0 +1,44 @@
+{% extends 'main/header.html' %}
+
+  {% block content %}
+    <h2>Trip Detail</h2>
+    <h5>{{trip.name}}</h5>
+    <h5>{{trip.budget}}</h5>
+    <h5>{{trip.comments}}</h5>
+
+  <h3>Anailable Flights</h3>
+  <a class="btn btn-primary" href="{% url 'main:flight' trip.id %}" role="button">Add a flight</a>
+  {% if flights %}
+    {% for flight in flights%}
+    <div class="list-group mx-0">
+        <label class="list-group-item d-flex gap-2">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="">
+        <span>
+            {{flight.origin_location }}
+            <small class="d-block text-muted">From: {{ flight.date_from}} Time:{{flight.time_from }}</small>
+            <small class="d-block text-muted">To:{{flight.date_to}}  Time:{{flight.time_to }}</small>
+        </span>
+        </label>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+
+  <h3>Available Bookings</h3>
+  <a class="btn btn-primary" href="{% url 'main:booking' trip.id %}" role="button">Book a place</a>
+  {% if bookings %}
+    {% for booked in bookings%}
+    <div class="list-group mx-0">
+        <label class="list-group-item d-flex gap-2">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="">
+        <span>
+            {{booked.origin_location }}
+            <small class="d-block text-muted">From:{{booked.date_from}} Time:{{ booked.time_from }}</small>
+            <small class="d-block text-muted">To: {{booked.date_to}} Time:{{ booked.time_to }}</small>
+        </span>
+        </label>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+  {% endblock %}

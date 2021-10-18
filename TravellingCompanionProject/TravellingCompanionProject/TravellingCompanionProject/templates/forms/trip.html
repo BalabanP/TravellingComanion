@@ -1,0 +1,47 @@
+{% extends 'main/header.html' %}
+
+  {% block content %}
+
+  <h1>Please fill flight details</h1>
+  <form action="trip_create" method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <tr><td rowspan="2"><input type="submit" value="OK"></td></tr>
+  </form>
+  
+  {% for message in messages %}
+  {% if 'success' in message.tags %}
+      <div style="color: green;"class="success-message"><h3>{{ message }}</h3></div>
+      <h2>Anailable Flights</h2>
+      {% for flight in available_flights%}
+      <div class="list-group mx-0">
+        <label class="list-group-item d-flex gap-2">
+          <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="">
+          <span>
+            {{flight.origin_location }}
+            <small class="d-block text-muted">With support text underneath to add more detail</small>
+          </span>
+        </label>
+      </div>
+      {% endfor %}
+
+
+      <form action="trip_create" method="post">
+        {% csrf_token %}
+        {{ flight_form.as_p}}
+        <tr><td rowspan="2"><input type="submit" value="OK"></td></tr>
+      </form>
+      
+      <h2>Anailable Booking</h2>
+      
+      <form action="trip_create" method="post">
+        {% csrf_token %}
+        {{ flight_form.as_p}}
+        <tr><td rowspan="2"><input type="submit" value="OK"></td></tr>
+      </form>
+    {% endif %}
+  {% endfor %}
+
+
+
+  {% endblock %}
